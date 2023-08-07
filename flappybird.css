@@ -8,4 +8,6 @@ body {
     background-image: url("./flappybirdbg.png");
     background-size: cover;
     height: 90vh;
+    aspect-ratio: 360 / 640;
+    margin: 0 auto;
 }
