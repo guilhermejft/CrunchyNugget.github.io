@@ -181,16 +181,32 @@ function placePipes() {
 }
 
 function moveBird(e) {
-    if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
+    // Check if it's a touch event (mobile)
+    if (e.touches) {
         // The nugget jumps
         velocityY = -6;
+
+        // Prevent default touch behavior
+        e.preventDefault();
 
         // Reset the game if it's already over
         if (gameOver) {
             resetGame();
         }
+    } else {
+        // Handle other key-based events for non-mobile devices (e.g., Space, ArrowUp, KeyX)
+        if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
+            // The nugget jumps
+            velocityY = -6;
+
+            // Reset the game if it's already over
+            if (gameOver) {
+                resetGame();
+            }
+        }
     }
 }
+
 
 function resetGame() {
     bird.y = birdY;
