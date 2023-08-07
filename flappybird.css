@@ -1,6 +1,8 @@
 body {
     font-family:'Courier New', Courier, monospace;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 #board {
@@ -11,3 +13,17 @@ body {
     aspect-ratio: 360 / 640;
     margin: 0 auto;
 }
+
+/* Media query for screens with a maximum width of 768px */
+@media screen and (max-width: 768px) {
+    #board {
+      height: 70vh; /* Reduce height for smaller screens */
+    }
+  }
+  
+  /* Media query for screens with a maximum width of 480px */
+  @media screen and (max-width: 480px) {
+    #board {
+      height: 50vh; /* Further reduce height for even smaller screens */
+    }
+  }
