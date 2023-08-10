@@ -37,6 +37,7 @@ let velocityY = 0; //velocidade de salto do nugget
 let gravity = 0.4; // adiciona gravidade para o nugget descer
 
 let gameOver = false;
+let gameStarted = false; // New variable to track game start status
 let score = 0;
 
 window.onload = function () {
@@ -74,17 +75,37 @@ window.onload = function () {
 //criar função para atualizar os frames do canvas e redesenhalo (ou seja, o game loop)
 function update() {
     requestAnimationFrame(update);
+    context.clearRect(0, 0, board.width, board.height);
+
+if (!gameStarted) {
+    // Display introductory message
+    context.fillStyle = "white";
+    context.font = "30px sans-serif";
+    context.textAlign = "center";
+
+    const startMessage = "O Nugget\né demasiado delicioso!\nSalta para o salvar!";
+    const lines = startMessage.split("\n");
+
+    const lineHeight = 40; // Adjust this value to control line spacing
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const textY = 180 + i * lineHeight;
+        context.fillText(line, boardWidth / 2, textY);
+    }
+
+    return;
+}
+
     if (gameOver) {
         drawScoreAndGameOver();
         return;
     }
-    context.clearRect(0, 0, board.width, board.height);
 
     //bird
     velocityY += gravity;
-    bird.y = Math.max(bird.y + velocityY, 0); //adiciona gravidade ao nugget, limita o quanto pode subir ao limiar 0 (topo do board)
+    bird.y = Math.max(bird.y + velocityY, 0);
 
-    // Verificar se o nugget toca na parte debaixo do board. Se sim, dar GameOver para ele não bugar
     if (bird.y + bird.height >= boardHeight) {
         gameOver = true;
     }
@@ -99,7 +120,7 @@ function update() {
             context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
 
             if (!pipe.passed && bird.x > pipe.x + pipe.width) {
-                score += 0.5; // 0.5 porque o nugget passa por dois pipes. if score += 1; iria somar sempre 2 pts
+                score += 0.5;
                 pipe.passed = true;
             }
 
@@ -109,15 +130,12 @@ function update() {
         }
     }
 
-    // Display score during the game (top-left corner)
     drawScoreInGame();
 
-    //limpar os pipes que já passaram para não dar problemas de memória (array gigante)
     while (pipeArray.length > 0 && pipeArray[0].x < -pipe.width) {
-        pipeArray.shift(); //remove o primeiro elemento do array
+        pipeArray.shift();
     }
 
-    // esta parte foi o chat gpt xD -> Draw the score and game over message
     drawScoreAndGameOver();
 }
 
@@ -125,20 +143,18 @@ function drawScoreInGame() {
     context.fillStyle = "white";
     context.font = "30px sans-serif";
     context.textAlign = "left";
-    context.fillText(score, 10, 30); // Display score in the top-left corner
+    context.fillText(score, 10, 30);
 }
 
 function drawScoreAndGameOver() {
     context.clearRect(0, 0, board.width, board.height);
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
-    // Score display (centered)
     context.fillStyle = "white";
     context.font = "45px sans-serif";
     context.textAlign = "center";
     context.fillText(score, boardWidth / 2, 100);
 
-    // Game over message (centered)
     if (gameOver) {
         context.font = "30px sans-serif";
         context.fillText("Ups...", boardWidth / 2, 180);
@@ -181,32 +197,26 @@ function placePipes() {
 }
 
 function moveBird(e) {
-    // Check if it's a touch event (mobile)
+    if (!gameStarted) {
+        gameStarted = true;
+        return;
+    }
+
     if (e.touches) {
-        // The nugget jumps
         velocityY = -6;
-
-        // Prevent default touch behavior
         e.preventDefault();
-
-        // Reset the game if it's already over
         if (gameOver) {
             resetGame();
         }
     } else {
-        // Handle other key-based events for non-mobile devices (e.g., Space, ArrowUp, KeyX)
         if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
-            // The nugget jumps
             velocityY = -6;
-
-            // Reset the game if it's already over
             if (gameOver) {
                 resetGame();
             }
         }
     }
 }
-
 
 function resetGame() {
     bird.y = birdY;
@@ -216,7 +226,6 @@ function resetGame() {
 }
 
 function detectCollision(a, b) {
-    // boolean para verificar colisões entre dois retângulos
     return (
         a.x < b.x + b.width &&
         a.x + a.width > b.x &&
