@@ -18,13 +18,13 @@ body {
 /* Media query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
     #board {
-      height: 100vh;
+      height: 80vh;
     }
   }
   
   /* Media query for screens with a maximum width of 480px */
   @media screen and (max-width: 480px) {
     #board {
-      height: 100vh;
+      height: 80vh;
     }
   }
