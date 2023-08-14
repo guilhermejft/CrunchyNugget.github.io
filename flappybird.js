@@ -34,11 +34,20 @@ let bottomPipeImg2;
 //physics do jogo
 let velocityX = -2; //velocidade dos pipes a andar para a esquerda (axis x)
 let velocityY = 0; //velocidade de salto do nugget
-let gravity = 0.4; // adiciona gravidade para o nugget descer
+let gravity = 0.3; // adiciona gravidade para o nugget descer
 
 let gameOver = false;
 let gameStarted = false; // New variable to track game start status
 let score = 0;
+
+// Define initial interval time and rate of decrease
+let initialInterval = 2500; // 2.5 seconds
+let intervalDecreaseRate = 25; // 0.025 seconds
+
+// Variable to store the interval for pipe placement
+let pipesInterval;
+
+//vamos criar um incremento na velocidade dos pipes para haver uma progressão lógica de dificuldade
 
 window.onload = function () {
     board = document.getElementById("board");
@@ -65,8 +74,11 @@ window.onload = function () {
     bottomPipeImg2 = new Image();
     bottomPipeImg2.src = "bottompipe2.png";
 
+    // Set up the pipes interval only once
+    pipesInterval = setInterval(placePipes, initialInterval);
+
     requestAnimationFrame(update);
-    setInterval(placePipes, 1500); //1.5segundos
+    // setInterval(placePipes, 2500); //1.5 seconds altered to 2.5 seconds
     //event listeners para "keydown" (any key) e toques no ecran (mobile)
     document.addEventListener("keydown", moveBird);
     board.addEventListener("touchstart", moveBird);
@@ -77,25 +89,25 @@ function update() {
     requestAnimationFrame(update);
     context.clearRect(0, 0, board.width, board.height);
 
-if (!gameStarted) {
-    // Display introductory message
-    context.fillStyle = "white";
-    context.font = "30px sans-serif";
-    context.textAlign = "center";
+    if (!gameStarted) {
+        // Display introductory message
+        context.fillStyle = "white";
+        context.font = "30px sans-serif";
+        context.textAlign = "center";
 
-    const startMessage = "O Nugget\né demasiado delicioso!\nSalta para o salvar!";
-    const lines = startMessage.split("\n");
+        const startMessage = "O Nugget\né demasiado delicioso!\nSalta para o salvar!";
+        const lines = startMessage.split("\n");
 
-    const lineHeight = 40; // Adjust this value to control line spacing
+        const lineHeight = 40; // Adjust this value to control line spacing
 
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-        const textY = 180 + i * lineHeight;
-        context.fillText(line, boardWidth / 2, textY);
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const textY = 180 + i * lineHeight;
+            context.fillText(line, boardWidth / 2, textY);
+        }
+
+        return;
     }
-
-    return;
-}
 
     if (gameOver) {
         drawScoreAndGameOver();
@@ -122,6 +134,12 @@ if (!gameStarted) {
             if (!pipe.passed && bird.x > pipe.x + pipe.width) {
                 score += 0.5;
                 pipe.passed = true;
+
+                // Calculate the updated interval based on score
+                let updatedInterval = initialInterval - score * intervalDecreaseRate;
+                updatedInterval = Math.max(updatedInterval, 500); // Limit the interval to a minimum of 0.5 seconds
+                clearInterval(pipesInterval); // Clear the previous interval
+                pipesInterval = setInterval(placePipes, updatedInterval); // Set new interval
             }
 
             if (detectCollision(bird, pipe)) {
@@ -192,7 +210,7 @@ function placePipes() {
         height: pipeHeight,
         passed: false,
     };
-    
+
     pipeArray.push(bottomPipe);
 }
 
@@ -223,6 +241,8 @@ function resetGame() {
     pipeArray = [];
     score = 0;
     gameOver = false;
+    clearInterval(pipesInterval); // Clear the interval when the game is reset
+    pipesInterval = setInterval(placePipes, initialInterval); // Reset to initial interval
 }
 
 function detectCollision(a, b) {
