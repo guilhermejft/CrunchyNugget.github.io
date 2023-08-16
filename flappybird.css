@@ -1,31 +1,49 @@
 body {
-    font-family:'Courier New', Courier, monospace;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box;
+  font-family:'Courier New', Courier, monospace;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+.game-container {
+  position: relative;
+  display: inline-block; 
 }
 
 #board {
-    /* background-color: skyblue; */
-    background-image: url("./flappybirdbg.png");
-    background-size: cover;
-    height: 90vh;
-    aspect-ratio: 360 / 640;
-    margin: 0 auto;
+  /* background-color: skyblue; */
+  background-image: url("./flappybirdbg.png");
+  background-size: cover;
+  height: 90vh;
+  aspect-ratio: 360 / 640;
+  margin: 0 auto;
+}
+
+#fireGif {
+  position: absolute;
+  top: -40px;
+  left: -5px;
+  z-index: 1;
+  height: 90px;
+  width: auto;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Media query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
-    #board {
-      height: 70vh;
-    }
+  #board {
+    height: 70vh;
   }
-  
-  /* Media query for screens with a maximum width of 480px */
-  @media screen and (max-width: 480px) {
-    #board {
-      height: 70vh;
-    }
+}
+
+/* Media query for screens with a maximum width of 480px */
+@media screen and (max-width: 480px) {
+  #board {
+    height: 70vh;
   }
+}
