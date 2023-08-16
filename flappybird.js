@@ -48,6 +48,16 @@ let intervalDecreaseRate = 25; // 0.025 seconds
 let pipesInterval;
 
 //vamos criar um incremento na velocidade dos pipes para haver uma progressão lógica de dificuldade
+const backgroundMusic = new Audio("background_music.mp3"); // Replace with your audio file path
+backgroundMusic.loop = true; // Set the audio to loop
+backgroundMusic.controls = true; // Add controls to manually play/pause the audio
+
+// Play background music when the game starts
+document.addEventListener("keydown", function startGameWithMusic() {
+    backgroundMusic.play();
+    document.removeEventListener("keydown", startGameWithMusic); // Remove the event listener after playing
+    // Your existing game start logic here
+});
 
 window.onload = function () {
     board = document.getElementById("board");
@@ -74,8 +84,13 @@ window.onload = function () {
     bottomPipeImg2 = new Image();
     bottomPipeImg2.src = "bottompipe2.png";
 
+    const fireGif = document.getElementById("fireGif"); //gif do fogo
+
     // Set up the pipes interval only once
     pipesInterval = setInterval(placePipes, initialInterval);
+
+    // Play background music when the game starts
+    backgroundMusic.play();
 
     requestAnimationFrame(update);
     // setInterval(placePipes, 2500); //1.5 seconds altered to 2.5 seconds
@@ -91,7 +106,7 @@ function update() {
 
     if (!gameStarted) {
         // Display introductory message
-        context.fillStyle = "white";
+        context.fillStyle = "#345a31";
         context.font = "30px sans-serif";
         context.textAlign = "center";
 
@@ -135,6 +150,10 @@ function update() {
                 score += 0.5;
                 pipe.passed = true;
 
+                playScoreSound(); //som do score
+
+                playFireGifOnce(); //gif do fogo score
+
                 // Calculate the updated interval based on score
                 let updatedInterval = initialInterval - score * intervalDecreaseRate;
                 updatedInterval = Math.max(updatedInterval, 500); // Limit the interval to a minimum of 0.5 seconds
@@ -144,6 +163,7 @@ function update() {
 
             if (detectCollision(bird, pipe)) {
                 gameOver = true;
+                playGameOverSound(); // Play game over sound
             }
         }
     }
@@ -158,22 +178,46 @@ function update() {
 }
 
 function drawScoreInGame() {
-    context.fillStyle = "white";
+    context.fillStyle = "#345a31";
     context.font = "30px sans-serif";
     context.textAlign = "left";
     context.fillText(score, 10, 30);
+}
+
+// o gif aparece uma vez sempre que o jogador faz um ponto por 1 segundo
+function playFireGifOnce() {
+    fireGif.classList.remove("hidden");
+    setTimeout(function () {
+        fireGif.classList.add("hidden");
+    }, 1000); // Adjust the time based on the GIF duration
+}
+
+function playJumpSound() {
+    const jumpSound = document.getElementById("jumpSound");
+    jumpSound.play();
+}
+
+function playScoreSound() {
+    const scoreSound = document.getElementById("scoreSound");
+    scoreSound.play();
+}
+
+function playGameOverSound() {
+    const gameOverSound = document.getElementById("gameOverSound");
+    gameOverSound.play();
 }
 
 function drawScoreAndGameOver() {
     context.clearRect(0, 0, board.width, board.height);
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
-    context.fillStyle = "white";
+    context.fillStyle = "#345a31";
     context.font = "45px sans-serif";
     context.textAlign = "center";
     context.fillText(score, boardWidth / 2, 100);
 
     if (gameOver) {
+        backgroundMusic.pause();
         context.font = "30px sans-serif";
         context.fillText("Ups...", boardWidth / 2, 180);
         context.fillText("Salta para voltar a tentar!", boardWidth / 2, 220);
@@ -222,6 +266,7 @@ function moveBird(e) {
 
     if (e.touches) {
         velocityY = -6;
+        playJumpSound();
         e.preventDefault();
         if (gameOver) {
             resetGame();
@@ -229,6 +274,7 @@ function moveBird(e) {
     } else {
         if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
             velocityY = -6;
+            playJumpSound();
             if (gameOver) {
                 resetGame();
             }
@@ -243,6 +289,7 @@ function resetGame() {
     gameOver = false;
     clearInterval(pipesInterval); // Clear the interval when the game is reset
     pipesInterval = setInterval(placePipes, initialInterval); // Reset to initial interval
+    backgroundMusic.play();
 }
 
 function detectCollision(a, b) {
