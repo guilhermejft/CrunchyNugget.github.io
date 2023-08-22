@@ -16,7 +16,7 @@ body {
   /* background-color: skyblue; */
   background-image: url("./flappybirdbg.png");
   background-size: cover;
-  height: 100vh;
+  height: 90vh;
   aspect-ratio: 360 / 640;
   margin: 0 auto;
 }
@@ -47,13 +47,13 @@ body {
 /* Media query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
   #board {
-    height: 100vh;
+    width: 100vw;
   }
 }
 
 /* Media query for screens with a maximum width of 480px */
 @media screen and (max-width: 480px) {
   #board {
-    height: 100vh;
+    width: 100vw;
   }
 }
