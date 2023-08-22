@@ -4,6 +4,9 @@ let boardWidth = 360;
 let boardHeight = 640;
 let context;
 
+//começa sem música por causa do autoplay dos browsers
+let isSoundOn = false;
+
 //bird
 let birdWidth = 34; //width to height ratio = 408 x 228 (=17/12)
 let birdHeight = 24;
@@ -51,12 +54,6 @@ const backgroundMusic = new Audio("background_music.mp3"); // Replace with your 
 backgroundMusic.loop = true; // Set the audio to loop
 backgroundMusic.controls = true; // Add controls to manually play/pause the audio
 
-// Play background music when the game starts
-document.addEventListener("keydown", function startGameWithMusic() {
-    backgroundMusic.play();
-    document.removeEventListener("keydown", startGameWithMusic); // Remove the event listener after playing
-    // Your existing game start logic here
-});
 
 window.onload = function () {
     board = document.getElementById("board");
@@ -90,7 +87,6 @@ window.onload = function () {
     // Event listener for sound button
     soundButton.addEventListener("click", toggleSound);
 
-    // Function to toggle sound and change sound button image
     function toggleSound() {
         if (isSoundOn) {
             backgroundMusic.pause();
@@ -106,9 +102,6 @@ window.onload = function () {
 
     // Set up the pipes interval only once
     pipesInterval = setInterval(placePipes, initialInterval);
-
-    // Play background music when the game starts
-    backgroundMusic.play();
 
     requestAnimationFrame(update);
     // setInterval(placePipes, 2500); //1.5 seconds altered to 2.5 seconds
