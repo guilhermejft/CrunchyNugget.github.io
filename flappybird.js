@@ -20,7 +20,6 @@ let bird = {
 
 //pipes
 let pipeArray = [];
-//ratio = 1/8
 let pipeWidth = 48;
 let pipeHeight = 384;
 let pipeX = boardWidth;
@@ -32,9 +31,9 @@ let topPipeImg2;
 let bottomPipeImg2;
 
 //physics do jogo
-let velocityX = -2; //velocidade dos pipes a andar para a esquerda (axis x)
-let velocityY = 0; //velocidade de salto do nugget
-let gravity = 0.3; // adiciona gravidade para o nugget descer
+let velocityX = -2;
+let velocityY = 0;
+let gravity = 0.3;
 
 let gameOver = false;
 let gameStarted = false; // New variable to track game start status
@@ -42,12 +41,12 @@ let score = 0;
 
 // Define initial interval time and rate of decrease
 let initialInterval = 2500; // 2.5 seconds
-let intervalDecreaseRate = 25; // 0.025 seconds
+let intervalDecreaseRate = 10; // 0.02 seconds of decrease in pipe interval
 
 // Variable to store the interval for pipe placement
 let pipesInterval;
+let spawnInterval = initialInterval; // New variable for spawn interval
 
-//vamos criar um incremento na velocidade dos pipes para haver uma progressão lógica de dificuldade
 const backgroundMusic = new Audio("background_music.mp3"); // Replace with your audio file path
 backgroundMusic.loop = true; // Set the audio to loop
 backgroundMusic.controls = true; // Add controls to manually play/pause the audio
@@ -83,6 +82,25 @@ window.onload = function () {
 
     bottomPipeImg2 = new Image();
     bottomPipeImg2.src = "bottompipe2.png";
+
+    // Define variables for sound button and audio control
+    const soundButton = document.getElementById("soundButton");
+    let isSoundOn = true; // Track sound state
+
+    // Event listener for sound button
+    soundButton.addEventListener("click", toggleSound);
+
+    // Function to toggle sound and change sound button image
+    function toggleSound() {
+        if (isSoundOn) {
+            backgroundMusic.pause();
+            soundButton.src = "mute.png"; // Change image to mute.png
+        } else {
+            backgroundMusic.play();
+            soundButton.src = "sound.png"; // Change image back to sound.png
+        }
+        isSoundOn = !isSoundOn; // Toggle sound state
+    }
 
     const fireGif = document.getElementById("fireGif"); //gif do fogo
 
@@ -154,8 +172,8 @@ function update() {
 
                 playFireGifOnce(); //gif do fogo score
 
-                // Calculate the updated interval based on score
-                let updatedInterval = initialInterval - score * intervalDecreaseRate;
+                // Update the interval based on score
+                let updatedInterval = spawnInterval - score * intervalDecreaseRate;
                 updatedInterval = Math.max(updatedInterval, 500); // Limit the interval to a minimum of 0.5 seconds
                 clearInterval(pipesInterval); // Clear the previous interval
                 pipesInterval = setInterval(placePipes, updatedInterval); // Set new interval
@@ -256,6 +274,12 @@ function placePipes() {
     };
 
     pipeArray.push(bottomPipe);
+
+    // Update the interval for spawning pipes
+    spawnInterval -= intervalDecreaseRate;
+    spawnInterval = Math.max(spawnInterval, 500); // Limit the interval to a minimum of 0.5 seconds
+    clearInterval(pipesInterval);
+    pipesInterval = setInterval(placePipes, spawnInterval);
 }
 
 function moveBird(e) {
