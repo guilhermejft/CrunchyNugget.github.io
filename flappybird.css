@@ -55,6 +55,7 @@ body {
   height: 90vh; /* Set height to 90vh */
   width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
   display: none;
+  pointer-events: none;
 }
 
 #winGif {
@@ -62,13 +63,14 @@ body {
   max-height: 100%;
   display: block;
   margin: auto;
+  pointer-events: none;
 }
 
 /* Media query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
   #board {
-    height: 70vh;
-    width: calc(70vh * (360 / 640)); /* Adjust width based on aspect ratio */
+    height: 90vh;
+    width: calc(90vh * (360 / 640)); /* Adjust width based on aspect ratio */
   }
   
   #winGifContainer {
@@ -76,17 +78,18 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    height: 70vh; /* Set height to 70vh */
-    width: calc(70vh * (360 / 640)); /* Calculate width based on aspect ratio */
+    height: 90vh; /* Set height to 70vh */
+    width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
+    pointer-events: none;
   }
 }
 
 /* Media query for screens with a maximum width of 480px */
 @media screen and (max-width: 480px) {
   #board {
-    height: 50vh;
-    width: calc(50vh * (360 / 640)); /* Adjust width based on aspect ratio */
+    height: 90vh;
+    width: calc(90vh * (360 / 640)); /* Adjust width based on aspect ratio */
   }
   
   #winGifContainer {
@@ -94,8 +97,9 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    height: 50vh; /* Set height to 50vh */
-    width: calc(50vh * (360 / 640)); /* Calculate width based on aspect ratio */
+    height: 90vh; /* Set height to 50vh */
+    width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
+    pointer-events: none;
   }
 }
