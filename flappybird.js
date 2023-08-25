@@ -4,11 +4,8 @@ let boardWidth = 360;
 let boardHeight = 640;
 let context;
 
-//começa sem música por causa do autoplay dos browsers
-let isSoundOn = false;
-
 //bird
-let birdWidth = 34; //width to height ratio = 408 x 228 (=17/12)
+let birdWidth = 34;
 let birdHeight = 24;
 let birdX = boardWidth / 8;
 let birdY = boardHeight / 2;
@@ -39,29 +36,27 @@ let velocityY = 0;
 let gravity = 0.3;
 
 let gameOver = false;
-let gameStarted = false; // New variable to track game start status
+let gameStarted = false;
 let score = 0;
 
-// Define initial interval time and rate of decrease
-let initialInterval = 2500; // 2.5 seconds
-let intervalDecreaseRate = 10; // 0.02 seconds of decrease in pipe interval
-
-// Variable to store the interval for pipe placement
+let initialInterval = 2500;
+let intervalDecreaseRate = 10;
 let pipesInterval;
-let spawnInterval = initialInterval; // New variable for spawn interval
+let spawnInterval = initialInterval;
 
-const backgroundMusic = new Audio("background_music.mp3"); // Replace with your audio file path
-backgroundMusic.loop = true; // Set the audio to loop
-backgroundMusic.controls = true; // Add controls to manually play/pause the audio
+const backgroundMusic = new Audio("background_music.mp3");
+backgroundMusic.loop = true;
+backgroundMusic.controls = true;
 
+//mais uma variável, desta vez para o .gif final! :D
+//let winGif = document.getElementById("winGif");
 
 window.onload = function () {
     board = document.getElementById("board");
     board.height = boardHeight;
     board.width = boardWidth;
-    context = board.getContext("2d"); //chamar o 2d para poder desenhar
+    context = board.getContext("2d");
 
-    //load images
     birdImg = new Image();
     birdImg.src = "flappybird.png";
     birdImg.onload = function () {
@@ -69,54 +64,61 @@ window.onload = function () {
     };
 
     topPipeImg = new Image();
-    topPipeImg.src = "toppipe.png";
+    topPipeImg.src = "toppipe.svg";
 
     bottomPipeImg = new Image();
-    bottomPipeImg.src = "bottompipe.png";
+    bottomPipeImg.src = "bottompipe.svg";
 
     topPipeImg2 = new Image();
-    topPipeImg2.src = "toppipe2.png";
+    topPipeImg2.src = "toppipe2.svg";
 
     bottomPipeImg2 = new Image();
-    bottomPipeImg2.src = "bottompipe2.png";
+    bottomPipeImg2.src = "bottompipe2.svg";
 
-    // Define variables for sound button and audio control
     const soundButton = document.getElementById("soundButton");
-    let isSoundOn = true; // Track sound state
+    let isSoundOn = true;
 
-    // Event listener for sound button
     soundButton.addEventListener("click", toggleSound);
 
     function toggleSound() {
+        console.log("Toggle sound called");
+
         if (isSoundOn) {
-            backgroundMusic.pause();
-            soundButton.src = "mute.png"; // Change image to mute.png
-        } else {
             backgroundMusic.play();
-            soundButton.src = "sound.png"; // Change image back to sound.png
+            soundButton.src = "sound.png";
+        } else {
+            backgroundMusic.pause();
+            soundButton.src = "mute.png";
         }
-        isSoundOn = !isSoundOn; // Toggle sound state
+        isSoundOn = !isSoundOn;
+        console.log("Sound state toggled to:", isSoundOn);
     }
 
-    const fireGif = document.getElementById("fireGif"); //gif do fogo
+    const fireGif = document.getElementById("fireGif");
 
-    // Set up the pipes interval only once
-    pipesInterval = setInterval(placePipes, initialInterval);
+    pipesInterval = null;
 
     requestAnimationFrame(update);
-    // setInterval(placePipes, 2500); //1.5 seconds altered to 2.5 seconds
-    //event listeners para "keydown" (any key) e toques no ecran (mobile)
     document.addEventListener("keydown", moveBird);
-    board.addEventListener("touchstart", moveBird);
+    board.addEventListener("touchstart", startGame);
 };
 
-//criar função para atualizar os frames do canvas e redesenhalo (ou seja, o game loop)
+function startGame() {
+    if (!gameStarted) {
+        gameStarted = true;
+        pipesInterval = setInterval(placePipes, initialInterval);
+        playJumpSound();
+        if (gameOver) {
+            resetGame();
+        }
+    }
+}
+
 function update() {
     requestAnimationFrame(update);
     context.clearRect(0, 0, board.width, board.height);
 
     if (!gameStarted) {
-        // Display introductory message
         context.fillStyle = "#345a31";
         context.font = "30px sans-serif";
         context.textAlign = "center";
@@ -124,7 +126,7 @@ function update() {
         const startMessage = "O Nugget\né demasiado delicioso!\nSalta para o salvar!";
         const lines = startMessage.split("\n");
 
-        const lineHeight = 40; // Adjust this value to control line spacing
+        const lineHeight = 40;
 
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
@@ -135,12 +137,17 @@ function update() {
         return;
     }
 
+    if (score >= 12) {
+        gameOver = true;
+        displayWinGif();
+        return;
+    }
+
     if (gameOver) {
         drawScoreAndGameOver();
         return;
     }
 
-    //bird
     velocityY += gravity;
     bird.y = Math.max(bird.y + velocityY, 0);
 
@@ -150,7 +157,6 @@ function update() {
 
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
-    //pipes
     if (!gameOver) {
         for (let i = 0; i < pipeArray.length; i++) {
             let pipe = pipeArray[i];
@@ -161,46 +167,44 @@ function update() {
                 score += 0.5;
                 pipe.passed = true;
 
-                playScoreSound(); //som do score
+                playScoreSound();
 
-                playFireGifOnce(); //gif do fogo score
+                playFireGifOnce();
 
-                // Update the interval based on score
                 let updatedInterval = spawnInterval - score * intervalDecreaseRate;
-                updatedInterval = Math.max(updatedInterval, 500); // Limit the interval to a minimum of 0.5 seconds
-                clearInterval(pipesInterval); // Clear the previous interval
-                pipesInterval = setInterval(placePipes, updatedInterval); // Set new interval
+                updatedInterval = Math.max(updatedInterval, 500);
+                clearInterval(pipesInterval);
+                pipesInterval = setInterval(placePipes, updatedInterval);
             }
 
             if (detectCollision(bird, pipe)) {
                 gameOver = true;
-                playGameOverSound(); // Play game over sound
+                playGameOverSound();
             }
         }
     }
 
     drawScoreInGame();
 
-    while (pipeArray.length > 0 && pipeArray[0].x < -pipe.width) {
+    while (pipeArray.length > 0 && pipeArray[0].x < -pipeArray[0].width) {
         pipeArray.shift();
     }
 
-    drawScoreAndGameOver();
+    //drawScoreAndGameOver();
 }
 
 function drawScoreInGame() {
     context.fillStyle = "#345a31";
     context.font = "30px sans-serif";
     context.textAlign = "left";
-    context.fillText(score, 10, 30);
+    context.fillText(score, 40, 30);
 }
 
-// o gif aparece uma vez sempre que o jogador faz um ponto por 1 segundo
 function playFireGifOnce() {
     fireGif.classList.remove("hidden");
     setTimeout(function () {
         fireGif.classList.add("hidden");
-    }, 1000); // Adjust the time based on the GIF duration
+    }, 1000);
 }
 
 function playJumpSound() {
@@ -268,16 +272,15 @@ function placePipes() {
 
     pipeArray.push(bottomPipe);
 
-    // Update the interval for spawning pipes
     spawnInterval -= intervalDecreaseRate;
-    spawnInterval = Math.max(spawnInterval, 500); // Limit the interval to a minimum of 0.5 seconds
+    spawnInterval = Math.max(spawnInterval, 500);
     clearInterval(pipesInterval);
     pipesInterval = setInterval(placePipes, spawnInterval);
 }
 
 function moveBird(e) {
     if (!gameStarted) {
-        gameStarted = true;
+        startGame(); // Call startGame function if not yet started
         return;
     }
 
@@ -304,9 +307,18 @@ function resetGame() {
     pipeArray = [];
     score = 0;
     gameOver = false;
-    clearInterval(pipesInterval); // Clear the interval when the game is reset
-    pipesInterval = setInterval(placePipes, initialInterval); // Reset to initial interval
-    backgroundMusic.play();
+    clearInterval(pipesInterval);
+    pipesInterval = setInterval(placePipes, initialInterval);
+
+    if (isSoundOn) {
+        backgroundMusic.play();
+    } else {
+        backgroundMusic.pause();
+    }
+}
+
+function displayWinGif() {
+    document.getElementById("winGifContainer").style.display = "block";
 }
 
 function detectCollision(a, b) {
