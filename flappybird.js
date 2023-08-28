@@ -48,9 +48,6 @@ const backgroundMusic = new Audio("background_music.mp3");
 backgroundMusic.loop = true;
 backgroundMusic.controls = true;
 
-//mais uma variável, desta vez para o .gif final! :D
-//let winGif = document.getElementById("winGif");
-
 window.onload = function () {
     board = document.getElementById("board");
     board.height = boardHeight;
@@ -139,7 +136,7 @@ function update() {
 
     if (score >= 12) {
         gameOver = true;
-        displayWinGif();
+        // displayWinGif(); // Commented out
         return;
     }
 
@@ -317,9 +314,9 @@ function resetGame() {
     }
 }
 
-function displayWinGif() {
+/*function displayWinGif() {
     document.getElementById("winGifContainer").style.display = "block";
-}
+}*/
 
 function detectCollision(a, b) {
     return (
