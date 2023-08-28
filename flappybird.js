@@ -104,6 +104,7 @@ window.onload = function () {
 };
 
 function startGame() {
+    console.log("startGame triggered");
     if (!gameStarted) {
         gameStarted = true;
         pipesInterval = setInterval(placePipes, initialInterval);
@@ -279,6 +280,7 @@ function placePipes() {
 }
 
 function moveBird(e) {
+    console.log("moveBird triggered");
     if (!gameStarted) {
         startGame(); // Call startGame function if not yet started
         return;
