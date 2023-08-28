@@ -55,7 +55,7 @@ body {
   height: 90vh; /* Set height to 90vh */
   width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
   display: none;
-  pointer-events: none;
+  touch-action: none;
 }
 
 #winGif {
@@ -63,7 +63,7 @@ body {
   max-height: 100%;
   display: block;
   margin: auto;
-  pointer-events: none;
+  touch-action: none;
 }
 
 /* Media query for screens with a maximum width of 768px */
@@ -81,11 +81,11 @@ body {
     height: 90vh; /* Set height to 70vh */
     width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
-    pointer-events: none;
+    touch-action: none;
   }
 
   #winGif {
-    pointer-events: none;
+    touch-action: none;
   }
 }
 
@@ -104,10 +104,10 @@ body {
     height: 90vh; /* Set height to 50vh */
     width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
-    pointer-events: none;
+    touch-action: none;
   }
 
   #winGif {
-    pointer-events: none;
+    touch-action: none;
   }
 }
