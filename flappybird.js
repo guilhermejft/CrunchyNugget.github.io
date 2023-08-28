@@ -323,6 +323,8 @@ function resetGame() {
 function displayWinGif() {
     document.getElementById("winGifContainer").style.display = "block";
     winGif.style.display = "block";
+    winGif.style.zIndex = "999"; // Set higher z-index when player wins
+    }
 }
 
 function detectCollision(a, b) {
