@@ -329,3 +329,14 @@ function detectCollision(a, b) {
         a.y + a.height > b.y
     );
 }
+
+const winGifContainer = document.getElementById("winGifContainer");
+const winGif = document.getElementById("winGif");
+
+winGifContainer.addEventListener("touchstart", handleWinGifTouch);
+winGif.addEventListener("touchstart", handleWinGifTouch);
+
+function handleWinGifTouch(e) {
+    // Call the moveBird function to make the bird jump
+    moveBird(e);
+}
