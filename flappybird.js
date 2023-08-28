@@ -137,7 +137,7 @@ function update() {
         return;
     }
 
-    if (score >= 12) {
+    if (score >= 4) {
         gameOver = true;
         displayWinGif();
         return;
@@ -329,3 +329,11 @@ function detectCollision(a, b) {
         a.y + a.height > b.y
     );
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const gifOverlay = document.querySelector(".gif-overlay");
+
+    gifOverlay.addEventListener("click", function(event) {
+      event.preventDefault();
+    });
+  });
