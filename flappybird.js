@@ -104,18 +104,7 @@ window.onload = function () {
     
     const winGifContainer = document.getElementById("winGifContainer");
 
-    const winGif = document.getElementById("winGif");
-    const winGifContainer = document.getElementById("winGifContainer");
-
-    winGif.style.pointerEvents = "none"; // Make the GIF transparent to touch
-    winGifContainer.style.pointerEvents = "none"; // Make the GIF container transparent to touch
-
-    board.addEventListener("touchstart", jumpBird);
 };
-
-function stopEventPropagation(event) {
-    event.stopPropagation();
-}
 
 function startGame() {
     if (!gameStarted) {
