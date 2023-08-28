@@ -64,6 +64,16 @@ body {
   margin: auto;
 }
 
+.gif-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  pointer-events: auto; /* Re-enable pointer events for the overlay */
+}
+
 /* Media query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
   #board {
