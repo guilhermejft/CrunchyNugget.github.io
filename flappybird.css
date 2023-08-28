@@ -55,16 +55,13 @@ body {
   height: 90vh; /* Set height to 90vh */
   width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
   display: none;
-  touch-action: none;
 }
 
 #winGif {
-  z-index: 0;
   max-width: 100%;
   max-height: 100%;
   display: block;
   margin: auto;
-  touch-action: none;
 }
 
 /* Media query for screens with a maximum width of 768px */
@@ -82,11 +79,7 @@ body {
     height: 90vh; /* Set height to 70vh */
     width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
-    touch-action: none;
-  }
-
-  #winGif {
-    touch-action: none;
+    pointer-events: none;
   }
 }
 
@@ -105,10 +98,6 @@ body {
     height: 90vh; /* Set height to 50vh */
     width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
-    touch-action: none;
-  }
-
-  #winGif {
-    touch-action: none;
+    pointer-events: none;
   }
 }
