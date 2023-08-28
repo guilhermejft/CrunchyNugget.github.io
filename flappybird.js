@@ -104,9 +104,13 @@ window.onload = function () {
     
     const winGifContainer = document.getElementById("winGifContainer");
 
-    board.addEventListener("touchstart", jumpBird);
     const winGif = document.getElementById("winGif");
-    winGif.addEventListener("touchstart", stopEventPropagation);
+    const winGifContainer = document.getElementById("winGifContainer");
+
+    winGif.style.pointerEvents = "none"; // Make the GIF transparent to touch
+    winGifContainer.style.pointerEvents = "none"; // Make the GIF container transparent to touch
+
+    board.addEventListener("touchstart", jumpBird);
 };
 
 function stopEventPropagation(event) {
