@@ -136,7 +136,7 @@ function update() {
 
     if (score >= 12) {
         gameOver = true;
-        // displayWinGif(); // Commented out
+        displayWinGif();
         return;
     }
 
@@ -314,9 +314,14 @@ function resetGame() {
     }
 }
 
-/*function displayWinGif() {
-    document.getElementById("winGifContainer").style.display = "block";
-}*/
+function displayWinGif() {
+    const winGifContainer = document.getElementById("winGifContainer");
+    const winGif = document.getElementById("winGif");
+    
+    // Show the GIF container and GIF
+    winGifContainer.style.display = "block";
+    winGif.style.display = "block";
+}
 
 function detectCollision(a, b) {
     return (
