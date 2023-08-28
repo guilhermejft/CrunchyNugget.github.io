@@ -111,6 +111,9 @@ function startGame() {
         if (gameOver) {
             resetGame();
         }
+            // Hide the GIF and its container
+        winGif.style.display = "none";
+        winGifContainer.style.display = "none";
     }
 }
 
@@ -319,6 +322,7 @@ function resetGame() {
 
 function displayWinGif() {
     document.getElementById("winGifContainer").style.display = "block";
+    winGif.style.display = "block";
 }
 
 function detectCollision(a, b) {
