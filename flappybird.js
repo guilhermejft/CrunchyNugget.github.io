@@ -101,10 +101,14 @@ window.onload = function () {
     requestAnimationFrame(update);
     document.addEventListener("keydown", moveBird);
     board.addEventListener("touchstart", startGame);
+    
+    const winGifContainer = document.getElementById("winGifContainer");
+
+        // Disable clickability for the GIF container
+        winGifContainer.style.pointerEvents = "none";
 };
 
 function startGame() {
-    console.log("startGame triggered");
     if (!gameStarted) {
         gameStarted = true;
         pipesInterval = setInterval(placePipes, initialInterval);
@@ -138,7 +142,7 @@ function update() {
         return;
     }
 
-    if (score >= 4) {
+    if (score >= 12) {
         gameOver = true;
         displayWinGif();
         return;
@@ -280,7 +284,6 @@ function placePipes() {
 }
 
 function moveBird(e) {
-    console.log("moveBird triggered");
     if (!gameStarted) {
         startGame(); // Call startGame function if not yet started
         return;
@@ -331,11 +334,3 @@ function detectCollision(a, b) {
         a.y + a.height > b.y
     );
 }
-
-document.addEventListener("DOMContentLoaded", function() {
-    const gifOverlay = document.querySelector(".gif-overlay");
-
-    gifOverlay.addEventListener("click", function(event) {
-      event.preventDefault();
-    });
-  });
