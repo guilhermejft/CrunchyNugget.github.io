@@ -101,9 +101,6 @@ window.onload = function () {
     requestAnimationFrame(update);
     document.addEventListener("keydown", moveBird);
     board.addEventListener("touchstart", startGame);
-    
-    const winGifContainer = document.getElementById("winGifContainer");
-
 };
 
 function startGame() {
