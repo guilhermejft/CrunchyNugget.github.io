@@ -104,9 +104,14 @@ window.onload = function () {
     
     const winGifContainer = document.getElementById("winGifContainer");
 
-        // Disable clickability for the GIF container
-        winGifContainer.style.pointerEvents = "none";
+    board.addEventListener("touchstart", jumpBird);
+    const winGif = document.getElementById("winGif");
+    winGif.addEventListener("touchstart", stopEventPropagation);
 };
+
+function stopEventPropagation(event) {
+    event.stopPropagation();
+}
 
 function startGame() {
     if (!gameStarted) {
