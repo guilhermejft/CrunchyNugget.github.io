@@ -142,7 +142,7 @@ function update() {
 
     if (score >= 12) {
         gameOver = true;
-        displayWinGif();
+        //displayWinGif();
         return;
     }
 
