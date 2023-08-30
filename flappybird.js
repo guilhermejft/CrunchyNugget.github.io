@@ -291,7 +291,7 @@ function moveBird(e) {
         if (gameOver) {
             resetGame();
         }
-        
+
     } else {
         if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
             velocityY = -6;
@@ -319,7 +319,8 @@ function resetGame() {
 }
 
 function displayWinGif() {
-    document.getElementById("winGifContainer").style.display = "block";
+  const winGif = document.getElementById("winGif");
+  winGif.style.display = "block";
 }
 
 function detectCollision(a, b) {
