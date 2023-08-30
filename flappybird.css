@@ -51,16 +51,13 @@ body {
 #winGif {
   max-width: 100%;
   max-height: 100%;
-  display: block;
-  margin: auto;
+  display: none;
   position: absolute;
-  top: 0;
+  top: -100%; /* Move the GIF below the board */
   left: 50%;
   transform: translateX(-50%);
-  height: 90vh; /* Set height to 90vh */
-  width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
-  display: none;
-  z-index: 1;
+  height: 90vh;
+  width: calc(90vh * (360 / 640));
 }
 
 
@@ -73,13 +70,15 @@ body {
   }
   
   #winGif {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
     position: absolute;
-    top: 0;
+    top: -100%; /* Move the GIF below the board */
     left: 50%;
     transform: translateX(-50%);
-    height: 80vh; /* Set height to 70vh */
+    height: 80vh; /* Set height to 80vh */
     width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
-    display: none;
     pointer-events: none;
     z-index: 1;
   }
@@ -94,13 +93,15 @@ body {
   }
   
   #winGif {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
     position: absolute;
-    top: 0;
+    top: -100%; /* Move the GIF below the board */
     left: 50%;
     transform: translateX(-50%);
-    height: 80vh; /* Set height to 50vh */
-    width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
-    display: none;
+    height: 80vh; /* Set height to 80vh */
+    width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
     pointer-events: none;
     z-index: 1;
   }
