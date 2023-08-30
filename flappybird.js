@@ -101,6 +101,7 @@ window.onload = function () {
     requestAnimationFrame(update);
     document.addEventListener("keydown", moveBird);
     board.addEventListener("touchstart", startGame);
+    board.addEventListener("touchstart", jump);
 };
 
 function startGame() {
@@ -220,6 +221,21 @@ function playScoreSound() {
 function playGameOverSound() {
     const gameOverSound = document.getElementById("gameOverSound");
     gameOverSound.play();
+}
+
+
+function jump() {
+    if (!gameStarted) {
+        startGame();
+        return;
+    }
+
+    velocityY = -6;
+    playJumpSound();
+
+    if (gameOver) {
+        resetGame();
+    }
 }
 
 function drawScoreAndGameOver() {
