@@ -60,6 +60,7 @@ body {
   height: 90vh; /* Set height to 90vh */
   width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
   display: none;
+  z-index: 1;
 }
 
 
@@ -68,6 +69,7 @@ body {
   #board {
     height: 80vh;
     width: calc(80vh * (360 / 640)); /* Adjust width based on aspect ratio */
+    z-index: 99999;
   }
   
   #winGif {
@@ -79,6 +81,7 @@ body {
     width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
     pointer-events: none;
+    z-index: 1;
   }
 }
 
@@ -87,6 +90,7 @@ body {
   #board {
     height: 80vh;
     width: calc(80vh * (360 / 640)); /* Adjust width based on aspect ratio */
+    z-index: 99999;
   }
   
   #winGif {
@@ -98,5 +102,6 @@ body {
     width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
     pointer-events: none;
+    z-index: 1;
   }
 }
