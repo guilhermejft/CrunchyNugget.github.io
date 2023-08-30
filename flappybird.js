@@ -112,7 +112,14 @@ function startGame() {
       if (gameOver) {
         resetGame();
       }
+      hideWinGif(); // Hide the win GIF when the game starts
     }
+  }
+
+  function hideWinGif() {
+    const winGif = document.getElementById("winGif");
+    winGif.style.display = "none";
+    winGif.style.top = "100%"; // Move the GIF below the board
   }  
 
 function update() {
@@ -223,7 +230,6 @@ function playGameOverSound() {
     gameOverSound.play();
 }
 
-
 function jump() {
     if (!gameStarted) {
         startGame();
@@ -303,7 +309,7 @@ function moveBird(e) {
     if (e.touches) {
         velocityY = -6;
         playJumpSound();
-        e.preventDefault();
+        //e.preventDefault();
         if (gameOver) {
             resetGame();
         }
@@ -333,6 +339,12 @@ function resetGame() {
         backgroundMusic.pause();
     }
 }
+
+function displayWinGif() {
+    const winGif = document.getElementById("winGif");
+    winGif.style.top = "0"; // Center the GIF vertically
+    winGif.style.display = "block";
+  }  
 
 function detectCollision(a, b) {
     return (
