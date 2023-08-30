@@ -48,12 +48,40 @@ body {
   height: 40px;
 }
 
+/* Updated CSS for Win GIF */
+#winGif {
+  max-width: 100%;
+  max-height: 100%;
+  display: none;
+  position: absolute;
+  top: -100%; /* Move the GIF below the board */
+  left: 50%;
+  transform: translateX(-50%);
+  height: 90vh;
+  width: calc(90vh * (360 / 640));
+}
+
+
 /* Media query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
   #board {
     height: 80vh;
     width: calc(80vh * (360 / 640)); /* Adjust width based on aspect ratio */
     z-index: 99999;
+  }
+  
+  #winGif {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+    position: absolute;
+    top: -100%; /* Move the GIF below the board */
+    left: 50%;
+    transform: translateX(-50%);
+    height: 80vh; /* Set height to 80vh */
+    width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
+    pointer-events: none;
+    z-index: 1;
   }
 }
 
@@ -63,5 +91,19 @@ body {
     height: 80vh;
     width: calc(80vh * (360 / 640)); /* Adjust width based on aspect ratio */
     z-index: 99999;
+  }
+  
+  #winGif {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+    position: absolute;
+    top: -100%; /* Move the GIF below the board */
+    left: 50%;
+    transform: translateX(-50%);
+    height: 80vh; /* Set height to 80vh */
+    width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
+    pointer-events: none;
+    z-index: 1;
   }
 }
