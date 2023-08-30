@@ -12,6 +12,7 @@ body {
   display: inline-block;
   max-height: 100vh; /* Set maximum height for responsiveness */
   overflow: hidden; /* Hide any overflow for smaller screens */
+  z-index: 99999999;
 }
 
 #board {
@@ -21,7 +22,7 @@ body {
   height: 90vh; /* Set height to 90vh */
   width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
   margin: 0 auto;
-  z-index: 99999999;
+  z-index: 9999;
 }
 
 #fireGif {
