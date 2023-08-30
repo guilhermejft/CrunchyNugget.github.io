@@ -48,6 +48,9 @@ const backgroundMusic = new Audio("background_music.mp3");
 backgroundMusic.loop = true;
 backgroundMusic.controls = true;
 
+//mais uma variável, desta vez para o .gif final! :D
+//let winGif = document.getElementById("winGif");
+
 window.onload = function () {
     board = document.getElementById("board");
     board.height = boardHeight;
@@ -284,10 +287,11 @@ function moveBird(e) {
     if (e.touches) {
         velocityY = -6;
         playJumpSound();
-        e.preventDefault();
+        //e.preventDefault();
         if (gameOver) {
             resetGame();
         }
+        
     } else {
         if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyX") {
             velocityY = -6;
@@ -315,12 +319,7 @@ function resetGame() {
 }
 
 function displayWinGif() {
-    const winGifContainer = document.getElementById("winGifContainer");
-    const winGif = document.getElementById("winGif");
-    
-    // Show the GIF container and GIF
-    winGifContainer.style.display = "block";
-    winGif.style.display = "block";
+    document.getElementById("winGifContainer").style.display = "block";
 }
 
 function detectCollision(a, b) {
