@@ -198,7 +198,7 @@ function drawScoreInGame() {
     context.fillStyle = "#345a31";
     context.font = "30px sans-serif";
     context.textAlign = "left";
-    context.fillText(score, 40, 30);
+    context.fillText(score, 50, 30);
 }
 
 function playFireGifOnce() {
