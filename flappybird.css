@@ -12,13 +12,13 @@ body {
   display: inline-block;
   max-height: 100vh; /* Set maximum height for responsiveness */
   overflow: hidden; /* Hide any overflow for smaller screens */
-  z-index: 999999;
 }
 
 #board {
   /* background-color: skyblue; */
   background-image: url("./flappybirdbg.png");
   background-size: cover;
+  max-height: 100vh;
   height: 90vh; /* Set height to 90vh */
   width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
   margin: 0 auto;
@@ -27,10 +27,10 @@ body {
 
 #fireGif {
   position: absolute;
-  top: -40px;
+  top: -8%;
   left: -5px;
   z-index: 1;
-  height: 90px;
+  height: 14vh;
   width: auto;
 }
 
@@ -44,21 +44,22 @@ body {
   right: 20px;
   z-index: 1;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 6vh;
+  height: auto;
 }
 
 /* Updated CSS for Win GIF */
 #winGif {
-  max-width: 100%;
-  max-height: 100%;
-  display: none;
+  max-height: 100vh;
+  display: block;
+  margin: auto;
   position: absolute;
-  top: -100%; /* Move the GIF below the board */
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  height: 90vh;
-  width: calc(90vh * (360 / 640));
+  height: 90vh; /* Set height to 90vh */
+  width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
+  display: none;
 }
 
 
@@ -67,21 +68,17 @@ body {
   #board {
     height: 80vh;
     width: calc(80vh * (360 / 640)); /* Adjust width based on aspect ratio */
-    z-index: 99999;
   }
   
   #winGif {
-    max-width: 100%;
-    max-height: 100%;
-    display: none;
     position: absolute;
-    top: -100%; /* Move the GIF below the board */
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
-    height: 80vh; /* Set height to 80vh */
+    height: 80vh; /* Set height to 70vh */
     width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
+    display: none;
     pointer-events: none;
-    z-index: 1;
   }
 }
 
@@ -90,20 +87,16 @@ body {
   #board {
     height: 80vh;
     width: calc(80vh * (360 / 640)); /* Adjust width based on aspect ratio */
-    z-index: 99999;
   }
   
   #winGif {
-    max-width: 100%;
-    max-height: 100%;
-    display: none;
     position: absolute;
-    top: -100%; /* Move the GIF below the board */
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
-    height: 80vh; /* Set height to 80vh */
-    width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
+    height: 80vh; /* Set height to 50vh */
+    width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
+    display: none;
     pointer-events: none;
-    z-index: 1;
   }
 }
