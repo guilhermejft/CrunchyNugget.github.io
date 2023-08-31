@@ -106,21 +106,14 @@ window.onload = function () {
 
 function startGame() {
     if (!gameStarted) {
-      gameStarted = true;
-      pipesInterval = setInterval(placePipes, initialInterval);
-      playJumpSound();
-      if (gameOver) {
-        resetGame();
-      }
-      hideWinGif(); // Hide the win GIF when the game starts
+        gameStarted = true;
+        pipesInterval = setInterval(placePipes, initialInterval);
+        playJumpSound();
+        if (gameOver) {
+            resetGame();
+        }
     }
-  }
-
-  function hideWinGif() {
-    const winGif = document.getElementById("winGif");
-    winGif.style.display = "none";
-    winGif.style.top = "100%"; // Move the GIF below the board
-  }  
+}
 
 function update() {
     requestAnimationFrame(update);
@@ -341,10 +334,9 @@ function resetGame() {
 }
 
 function displayWinGif() {
-    const winGif = document.getElementById("winGif");
-    winGif.style.top = "0"; // Center the GIF vertically
-    winGif.style.display = "block";
-  }  
+  const winGif = document.getElementById("winGif");
+  winGif.style.display = "block";
+}
 
 function detectCollision(a, b) {
     return (
