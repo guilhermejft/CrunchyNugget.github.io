@@ -59,6 +59,7 @@ body::before {
   padding: 2%; /* Padding is 5% of viewport height */
   width: max-content;
   border-radius: 5%;
+  max-width: 90vw;
 }
 
 #fireGif {
