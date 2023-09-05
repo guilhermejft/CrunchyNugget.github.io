@@ -34,16 +34,16 @@ body {
   font-family: 'sans', serif;
   font-weight: bold;
   color: #1b7e50;
-  margin: 1em auto;
+  margin: 2% auto; /* Margin is 5% of viewport height and centered horizontally */
   text-align: center;
-  font-size: 1.5em; 
-  border-radius: 1em;
+  font-size: 120%; /* Font size is 7% of viewport height */
+  border-radius: 1%; /* Border radius is 5% of viewport height */
   background-color: #efefef;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5em;
-  width:max-content;
+  padding: 2%; /* Padding is 5% of viewport height */
+  width: max-content;
 }
 
 #fireGif {
