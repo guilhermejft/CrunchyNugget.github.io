@@ -5,6 +5,11 @@ body {
   padding: 0;
   border: 0;
   box-sizing: border-box;
+  background-color: rgba(107, 210, 250,);
+  background-image: url("bg.png");
+  background-repeat: repeat;
+  background-size: 10%;
+  background-blend-mode: multiply;
 }
 
 .game-container {
@@ -23,6 +28,22 @@ body {
   width: calc(90vh * (360 / 640)); /* Calculate width based on aspect ratio */
   margin: 0 auto;
   z-index: 99999999;
+}
+
+.background-text {
+  font-family: 'sans', serif;
+  font-weight: bold;
+  color: #1b7e50;
+  margin: 1em auto;
+  text-align: center;
+  font-size: 1.5em; 
+  border-radius: 1em;
+  background-color: #efefef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+  width:max-content;
 }
 
 #fireGif {
