@@ -140,6 +140,7 @@ function update() {
 
     if (score >= 12) {
         gameOver = true;
+        hideGameElements();
         displayWinGif();
         return;
     }
@@ -331,6 +332,21 @@ function resetGame() {
     } else {
         backgroundMusic.pause();
     }
+}
+
+function hideGameElements() {
+    // Hide the game elements when the player wins
+    const gameContainer = document.querySelector('.game-container');
+    const backgroundText = document.querySelector('.background-text');
+    const canvas = document.querySelector('#board');
+    const soundButton = document.querySelector('#soundButton');
+    const fireGif = document.querySelector('#fireGif');
+
+    gameContainer.style.display = 'none';
+    backgroundText.style.display = 'none';
+    canvas.style.display = 'none';
+    soundButton.style.display = 'none';
+    fireGif.style.display = 'none';
 }
 
 function displayWinGif() {
