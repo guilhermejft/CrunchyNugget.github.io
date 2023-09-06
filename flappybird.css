@@ -108,10 +108,12 @@ body::before {
   }
   
   #winGif {
+    display: block;
+    margin: auto;
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center both vertically and horizontally */
     height: 80vh; /* Set height to 70vh */
     width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
@@ -127,10 +129,12 @@ body::before {
   }
   
   #winGif {
+    display: block;
+    margin: auto;
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center both vertically and horizontally */
     height: 80vh; /* Set height to 50vh */
     width: calc(80vh * (360 / 640)); /* Calculate width based on aspect ratio */
     display: none;
